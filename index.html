@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rezervări Turistice - mockup</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Rezervări Turistice</h1>
+    <p>Gestionează pachetele turistice ale clienților.</p>
+    <p class="app-count">3 rezervări, dintre care 2 plătite</p>
+  </header>
+  
+  <main class="container">
+    <section class="panel">
+      <h2>Adaugă rezervare</h2>
+      <form class="item-form">
+        <label>Destinație <input type="text" name="destinatie" placeholder="Ex: Ritz Paris" /></label>
+        <label>Tip masă
+          <select name="tip_masa">
+            <option value="mic-dejun">Mic dejun</option>
+            <option value="demipensiune">Demipensiune</option>
+            <option value="all-inclusive">All Inclusive</option>
+          </select>
+        </label>
+        <button type="submit">Adaugă</button>
+      </form>
+    </section>
+    
+    <section class="panel">
+      <h2>Rezervările mele</h2>
+      <ul class="item-list">
+        <li class="item-card done">
+          <div>
+            <h3>Ritz Paris</h3>
+            <span class="badge badge-mic-dejun">Mic dejun</span>
+          </div>
+          <span class="status">Plătită</span>
+        </li>
+        <li class="item-card">
+          <div>
+            <h3>Chalet Zermatt</h3>
+            <span class="badge badge-demipensiune">Demipensiune</span>
+          </div>
+          <span class="status">Neplătită</span>
+        </li>
+        <li class="item-card done">
+          <div>
+            <h3>Maldives Resort</h3>
+            <span class="badge badge-all-inclusive">All Inclusive</span>
+          </div>
+          <span class="status">Plătită</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+  
+  <footer class="app-footer">Proiect Tehnologii Web</footer>
+</body>
+</html>
