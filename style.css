@@ -1,64 +1,56 @@
 * { box-sizing: border-box; }
 
-/* 1. Variabile CSS - Temă Vibrantă Travel (Sky Blue & Magenta) */
-:root {
-  --bg: #fdf8fa; /* Un fundal alb-rozaliu extrem de subtil */
+/* 1. Variabile CSS - Temă Luminoasă pe Wrapper */
+.page-wrapper {
+  --bg: #fdf8fa; 
   --card: #ffffff;
-  
   --text: #1e293b;
   --muted: #64748b;
   
-  /* Culori vibrante și puternice */
-  --primary: #0ea5e9; /* Sky Blue Vibrant */
-  --secondary: #ec4899; /* Magenta / Roz Aprins */
-  
+  --primary: #0ea5e9; 
+  --secondary: #ec4899; 
   --border: #e2e8f0;
   
-  /* Etichete cu contrast bun pentru un look "profi" */
   --badge-mic-dejun-bg: #fef08a; 
   --badge-mic-dejun-txt: #854d0e;
-  
   --badge-demipensiune-bg: #fbcfe8; 
   --badge-demipensiune-txt: #be185d;
-  
   --badge-all-inclusive-bg: #bae6fd; 
   --badge-all-inclusive-txt: #0369a1;
+
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 2. Tema Întunecată Adaptată */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    
-    --primary: #38bdf8;
-    --secondary: #f472b6;
-    --border: #334155;
-    
-    --badge-mic-dejun-bg: #a16207; 
-    --badge-mic-dejun-txt: #fef08a;
-    
-    --badge-demipensiune-bg: #be185d; 
-    --badge-demipensiune-txt: #fbcfe8;
-    
-    --badge-all-inclusive-bg: #0369a1;
-    --badge-all-inclusive-txt: #bae6fd;
-  }
+/* 2. Variabile CSS - Tema Întunecată (când checkbox-ul e bifat) */
+#theme-toggle:checked ~ .page-wrapper {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  
+  --primary: #38bdf8;
+  --secondary: #f472b6;
+  --border: #334155;
+  
+  --badge-mic-dejun-bg: #a16207; 
+  --badge-mic-dejun-txt: #fef08a;
+  --badge-demipensiune-bg: #be185d; 
+  --badge-demipensiune-txt: #fbcfe8;
+  --badge-all-inclusive-bg: #0369a1;
+  --badge-all-inclusive-txt: #bae6fd;
 }
+
+/* Schimbarea iconiței soare/lună din buton */
+#theme-toggle:checked ~ .page-wrapper .icon-light { display: none; }
+#theme-toggle:checked ~ .page-wrapper .icon-dark { display: inline !important; }
 
 /* 3. Stiluri Generale */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-}
+body { margin: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
 
 .app-header { 
-  /* Gradient impresionant și vibrant */
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: #ffffff; 
   text-align: center; 
@@ -79,6 +71,23 @@ body {
   backdrop-filter: blur(5px); 
 }
 
+/* Stil Label (Buton temă) */
+.theme-toggle-btn {
+  display: block;
+  width: max-content;
+  margin: 20px auto 0;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.theme-toggle-btn:hover { background: rgba(255,255,255,0.3); }
+
 .app-footer { text-align: center; padding: 40px 20px; font-size: 0.95em; color: var(--muted); }
 
 /* 4. Layout cu Grid */
@@ -98,14 +107,14 @@ body {
   border-radius: 24px; 
   padding: 32px;
   box-shadow: 0 12px 35px -10px rgba(14, 165, 233, 0.15);
-  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .panel h2 { 
   margin-top: 0; 
   font-size: 1.45em; 
   margin-bottom: 24px; 
-  color: var(--secondary); /* Titlurile sunt magenta */
+  color: var(--secondary); 
   border-bottom: 2px dashed var(--border);
   padding-bottom: 12px;
 }
@@ -127,7 +136,7 @@ input, select {
 
 input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15); }
 
-button {
+button[type="submit"] {
   background: var(--primary);
   color: #fff;
   border: none;
@@ -141,8 +150,7 @@ button {
   box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
 }
 
-/* Butonul devine magenta la hover */
-button:hover { background: var(--secondary); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4); }
+button[type="submit"]:hover { background: var(--secondary); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4); }
 
 /* 6. Lista de carduri (Flexbox) */
 .item-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
@@ -153,7 +161,7 @@ button:hover { background: var(--secondary); transform: translateY(-3px); box-sh
   align-items: center;
   padding: 20px 24px;
   border: 1px solid var(--border);
-  border-left: 6px solid var(--primary); /* Accent de culoare profi pe margine */
+  border-left: 6px solid var(--primary);
   border-radius: 16px;
   background: var(--card);
   transition: all 0.3s ease;
@@ -163,18 +171,12 @@ button:hover { background: var(--secondary); transform: translateY(-3px); box-sh
   transform: translateX(5px);
   box-shadow: 0 8px 25px -5px rgba(236, 72, 153, 0.2);
   border-color: var(--secondary);
-  border-left-color: var(--secondary); /* Linia devine magenta la hover */
+  border-left-color: var(--secondary);
 }
 
 .item-card h3 { margin: 0 0 10px 0; font-size: 1.25em; font-weight: 800; color: var(--text); }
 
-.badge { 
-  padding: 6px 14px; 
-  border-radius: 8px; 
-  font-size: 0.85em;
-  font-weight: 700; 
-}
-
+.badge { padding: 6px 14px; border-radius: 8px; font-size: 0.85em; font-weight: 700; }
 .badge-mic-dejun { background-color: var(--badge-mic-dejun-bg); color: var(--badge-mic-dejun-txt); }
 .badge-demipensiune { background-color: var(--badge-demipensiune-bg); color: var(--badge-demipensiune-txt); }
 .badge-all-inclusive { background-color: var(--badge-all-inclusive-bg); color: var(--badge-all-inclusive-txt); }
@@ -183,11 +185,7 @@ button:hover { background: var(--secondary); transform: translateY(-3px); box-sh
 
 /* 7. Starea Finalizat */
 .item-card.done h3 { text-decoration: line-through; color: var(--muted); font-weight: 600; }
-.item-card.done { 
-  background: var(--bg); 
-  border-left: 6px solid var(--border);
-  opacity: 0.8; 
-}
+.item-card.done { background: var(--bg); border-left: 6px solid var(--border); opacity: 0.8; }
 
 /* 8. Accesibilitate */
 :focus-visible { outline: 3px dashed var(--secondary); outline-offset: 4px; }
