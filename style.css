@@ -1,46 +1,56 @@
 * { box-sizing: border-box; }
 
-
+/* 1. Variabile CSS - Tema Luminoasă Pastelată */
 :root {
-  --bg: #f9f9fb; 
-  --card: #ffffff; 
-  --text: #2d3748; 
-  --muted: #a0aec0;
+  --bg: #f8fafc; /* un alb-gri foarte fin */
+  --card: #ffffff;
+  --text: #334155;
+  --muted: #94a3b8;
   
-  
-  --accent: #b8e2f2; 
-  --accent-hover: #9cd1e6;
-  --accent-text: #1a365d; 
+  /* Culoare accent - un albastru pastel elegant */
+  --accent: #bae6fd; 
+  --accent-hover: #7dd3fc;
+  --accent-text: #0f172a; 
   
   --border: #e2e8f0;
   
+  /* Etichete pastelate, cu text asortat pentru contrast */
+  --badge-mic-dejun-bg: #fef08a; 
+  --badge-mic-dejun-txt: #854d0e;
   
-  --badge-mic-dejun: #fed7e2; 
-  --badge-demipensiune: #fefcbf; 
-  --badge-all-inclusive: #c4f1f9;
-  --badge-text: #2d3748;
+  --badge-demipensiune-bg: #fbcfe8; 
+  --badge-demipensiune-txt: #831843;
+  
+  --badge-all-inclusive-bg: #bbf7d0;
+  --badge-all-inclusive-txt: #166534;
 }
 
-
+/* 2. Tema Întunecată - se aplică automat dacă telefonul/PC-ul tău e pe Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111827;
-    --card: #1f2937;
-    --text: #f3f4f6;
-    --muted: #9ca3af;
-    --accent: #374151;
-    --accent-hover: #4b5563;
-    --accent-text: #f3f4f6;
-    --border: #374151;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --muted: #64748b;
     
-    --badge-text: #111827;
-    --badge-mic-dejun: #f472b6; 
-    --badge-demipensiune: #fbbf24; 
-    --badge-all-inclusive: #38bdf8;
+    --accent: #334155;
+    --accent-hover: #475569;
+    --accent-text: #f8fafc;
+    
+    --border: #334155;
+    
+    --badge-mic-dejun-bg: #854d0e; 
+    --badge-mic-dejun-txt: #fef08a;
+    
+    --badge-demipensiune-bg: #831843; 
+    --badge-demipensiune-txt: #fbcfe8;
+    
+    --badge-all-inclusive-bg: #166534;
+    --badge-all-inclusive-txt: #bbf7d0;
   }
 }
 
-
+/* 3. Stiluri Generale */
 body {
   margin: 0;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -49,80 +59,80 @@ body {
   line-height: 1.6;
 }
 
-
 .app-header { 
   background: var(--accent); 
   color: var(--accent-text); 
   text-align: center; 
-  padding: 30px 20px; 
+  padding: 40px 20px; 
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.app-header h1 { margin: 0 0 10px 0; font-size: 2.2em; }
-.app-header p { margin: 0; opacity: 0.9; }
+.app-header h1 { margin: 0 0 8px 0; font-size: 2.4em; font-weight: 700; letter-spacing: -0.5px; }
+.app-header p { margin: 0; font-size: 1.1em; opacity: 0.85; }
+.app-header .app-count { margin-top: 12px; font-size: 0.9em; font-weight: 500; }
 
 .app-footer { 
   text-align: center; 
-  padding: 30px 20px; 
+  padding: 40px 20px; 
   font-size: 0.9em; 
   color: var(--muted); 
 }
 
-
+/* 4. Layout cu Grid (Cerință Etapa 1) */
 .container {
-  max-width: 1100px;
-  margin: 40px auto;
+  max-width: 1000px;
+  margin: -20px auto 40px; /* Urcă puțin panourile peste header */
   padding: 0 20px;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 30px;
+  gap: 24px;
   align-items: start;
 }
 
-
+/* Panourile */
 .panel {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 30px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03); 
+  border-radius: 20px; /* Colțuri mai rotunjite, moderne */
+  padding: 28px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-.panel h2 { margin-top: 0; font-size: 1.4em; }
+.panel h2 { margin-top: 0; font-size: 1.3em; margin-bottom: 20px; border-bottom: 2px solid var(--bg); padding-bottom: 10px;}
 
-
-.item-form { display: flex; flex-direction: column; gap: 18px; }
-.item-form label { display: flex; flex-direction: column; gap: 6px; font-weight: 500; }
+/* 5. Formularul cu Flexbox */
+.item-form { display: flex; flex-direction: column; gap: 20px; }
+.item-form label { display: flex; flex-direction: column; gap: 8px; font-weight: 600; font-size: 0.95em; }
 
 input, select {
-  padding: 10px 14px;
+  padding: 12px 16px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
   background: var(--bg);
   color: var(--text);
   font-size: 1em;
-  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
 }
+
+input:focus, select:focus { outline: none; border-color: var(--muted); }
 
 button {
   background: var(--accent);
   color: var(--accent-text);
   border: none;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 12px;
   font-size: 1.1em;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
+  margin-top: 8px;
+  transition: all 0.2s ease;
 }
 
-button:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
-}
+button:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
-
+/* 6. Lista cu Flexbox */
 .item-list { 
   list-style: none; 
   padding: 0; 
@@ -136,49 +146,56 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 20px;
+  padding: 20px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  border-radius: 16px;
+  background: var(--card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .item-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border-color: var(--muted);
 }
 
-.item-card h3 { margin: 0 0 8px 0; font-size: 1.2em; }
+.item-card h3 { margin: 0 0 10px 0; font-size: 1.25em; font-weight: 600; }
 
-
+/* Etichete pastelate (Badges) */
 .badge { 
-  padding: 6px 12px; 
+  padding: 6px 14px; 
   border-radius: 999px; 
-  color: var(--badge-text); 
   font-size: 0.85em;
-  font-weight: 600; 
+  font-weight: 700; 
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
-.badge-mic-dejun { background-color: var(--badge-mic-dejun); }
-.badge-demipensiune { background-color: var(--badge-demipensiune); }
-.badge-all-inclusive { background-color: var(--badge-all-inclusive); }
 
-.status { font-weight: 500; font-size: 0.95em; color: var(--muted); }
+.badge-mic-dejun { background-color: var(--badge-mic-dejun-bg); color: var(--badge-mic-dejun-txt); }
+.badge-demipensiune { background-color: var(--badge-demipensiune-bg); color: var(--badge-demipensiune-txt); }
+.badge-all-inclusive { background-color: var(--badge-all-inclusive-bg); color: var(--badge-all-inclusive-txt); }
 
+.status { font-weight: 600; font-size: 0.95em; color: var(--muted); }
 
+/* 7. Starea Finalizat (Done) */
 .item-card.done h3 {
   text-decoration: line-through;
   color: var(--muted);
 }
-
-
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+.item-card.done {
+  background: var(--bg);
+  opacity: 0.8;
 }
 
+/* 8. Accesibilitate (Cerință Etapa 1) */
+:focus-visible {
+  outline: 3px dashed var(--muted);
+  outline-offset: 4px;
+}
 
+/* 9. Responsivitate (Cerință Etapa 1) */
 @media (max-width: 700px) {
-  .container { grid-template-columns: 1fr; }
-  .item-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .container { grid-template-columns: 1fr; margin-top: 20px; }
+  .item-card { flex-direction: column; align-items: flex-start; gap: 16px; }
   .item-card .status { align-self: flex-end; }
 }
