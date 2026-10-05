@@ -1,52 +1,59 @@
 * { box-sizing: border-box; }
 
-/* 1. Variabile CSS - Temă Vibrantă de Călătorii */
+/* 1. Variabile CSS - Temă Baby Blue & Roz Pudră */
 :root {
-  --bg: #f4f7f9; 
+  --bg: #fff5f8; /* Un roz extrem de deschis pentru fundal */
   --card: #ffffff;
-  --text: #1e293b;
-  --muted: #64748b;
+  --text: #4a4a4a;
+  --muted: #9e9e9e;
   
-  /* Gradient spectaculos pentru header (Oceanic spre Indigo) */
-  --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
-  --accent-text: #ffffff; 
+  /* Degrade pastelat pentru header (Baby Blue spre Roz Pudră) */
+  --accent: linear-gradient(135deg, #bde0fe 0%, #ffafcc 100%);
+  --accent-text: #2b2b2b; 
   
-  /* Portocaliu vibrant pentru butonul de adăugare */
-  --btn-bg: #f97316; 
-  --btn-hover: #ea580c;
+  /* Baby blue pentru butonul de adăugare */
+  --btn-bg: #a2d2ff; 
+  --btn-hover: #bde0fe;
+  --btn-text: #1a365d;
   
-  --border: #e2e8f0;
+  --border: #f8e1e7;
   
-  /* Etichete colorate, optimizate pentru contrast */
-  --badge-mic-dejun-bg: #fef08a; 
-  --badge-mic-dejun-txt: #854d0e;
+  /* Etichete pastelate */
+  --badge-mic-dejun-bg: #fdfcdc; 
+  --badge-mic-dejun-txt: #7a6a05;
   
-  --badge-demipensiune-bg: #fed7aa; 
-  --badge-demipensiune-txt: #9a3412;
+  --badge-demipensiune-bg: #ffc8dd; 
+  --badge-demipensiune-txt: #6b1d3d;
   
-  --badge-all-inclusive-bg: #a7f3d0;
-  --badge-all-inclusive-txt: #065f46;
+  --badge-all-inclusive-bg: #bde0fe;
+  --badge-all-inclusive-txt: #18416b;
 }
 
-/* 2. Tema Întunecată Adaptată */
+/* 2. Tema Întunecată (Adaptată blând) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --text: #f1f5f9;
-    --muted: #94a3b8;
+    --bg: #1a1518;
+    --card: #2a2226;
+    --text: #fdf8f9;
+    --muted: #a6949b;
     
-    --accent-gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
-    --border: #334155;
+    --accent: linear-gradient(135deg, #4a6fa5 0%, #8c5b73 100%);
+    --accent-text: #fdf8f9;
     
-    --badge-mic-dejun-bg: #ca8a04; 
-    --badge-mic-dejun-txt: #fef08a;
+    --btn-bg: #4a6fa5;
+    --btn-hover: #5d8bc9;
+    --btn-text: #ffffff;
     
-    --badge-demipensiune-bg: #c2410c; 
-    --badge-demipensiune-txt: #ffedd5;
+    --border: #4a3b42;
     
-    --badge-all-inclusive-bg: #059669;
-    --badge-all-inclusive-txt: #d1fae5;
+    --badge-mic-dejun-bg: #635817; 
+    --badge-mic-dejun-txt: #fdfcdc;
+    
+    --badge-demipensiune-bg: #6b1d3d; 
+    --badge-demipensiune-txt: #ffc8dd;
+    
+    --badge-all-inclusive-bg: #18416b;
+    --badge-all-inclusive-txt: #bde0fe;
   }
 }
 
@@ -60,76 +67,66 @@ body {
 }
 
 .app-header { 
-  background: var(--accent-gradient); 
+  background: var(--accent); 
   color: var(--accent-text); 
   text-align: center; 
-  padding: 50px 20px; 
+  padding: 45px 20px; 
   border-bottom: none;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 4px 15px rgba(255, 175, 204, 0.3);
 }
 
-.app-header h1 { margin: 0 0 10px 0; font-size: 2.6em; font-weight: 800; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.app-header p { margin: 0; font-size: 1.15em; opacity: 0.95; }
+.app-header h1 { margin: 0 0 10px 0; font-size: 2.4em; font-weight: 700; }
+.app-header p { margin: 0; font-size: 1.1em; opacity: 0.9; }
 .app-header .app-count { 
   margin-top: 15px; 
-  font-size: 0.95em; 
+  font-size: 0.9em; 
   font-weight: 600; 
-  background: rgba(255,255,255,0.2); 
+  background: rgba(255,255,255,0.4); 
   display: inline-block; 
   padding: 6px 16px; 
   border-radius: 20px; 
-  backdrop-filter: blur(5px); 
 }
 
-.app-footer { text-align: center; padding: 40px 20px; font-size: 0.95em; color: var(--muted); }
+.app-footer { text-align: center; padding: 40px 20px; font-size: 0.9em; color: var(--muted); }
 
 /* 4. Layout cu Grid */
 .container {
   max-width: 1050px;
-  margin: -30px auto 40px; 
+  margin: -25px auto 40px; 
   padding: 0 20px;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 30px;
+  gap: 25px;
   align-items: start;
 }
 
 .panel {
   background: var(--card);
-  border: none;
-  border-radius: 24px; 
-  padding: 32px;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 20px; 
+  padding: 30px;
+  box-shadow: 0 8px 20px -5px rgba(255, 175, 204, 0.15);
   position: relative;
   z-index: 10;
 }
 
 .panel h2 { 
   margin-top: 0; 
-  font-size: 1.4em; 
-  margin-bottom: 24px; 
+  font-size: 1.3em; 
+  margin-bottom: 20px; 
   color: var(--text); 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-}
-.panel h2::before { 
-  content: ""; 
-  display: block; 
-  width: 12px; 
-  height: 12px; 
-  border-radius: 50%; 
-  background: var(--btn-bg); 
+  border-bottom: 2px dashed var(--border);
+  padding-bottom: 15px;
 }
 
 /* 5. Formularul (Flexbox) */
-.item-form { display: flex; flex-direction: column; gap: 20px; }
-.item-form label { display: flex; flex-direction: column; gap: 8px; font-weight: 600; font-size: 0.95em; color: var(--muted); }
+.item-form { display: flex; flex-direction: column; gap: 18px; }
+.item-form label { display: flex; flex-direction: column; gap: 8px; font-weight: 600; font-size: 0.95em; color: var(--text); }
 
 input, select {
-  padding: 14px 18px;
+  padding: 12px 16px;
   border: 2px solid var(--border);
-  border-radius: 14px;
+  border-radius: 12px;
   background: var(--bg);
   color: var(--text);
   font-size: 1em;
@@ -137,73 +134,71 @@ input, select {
   transition: all 0.3s ease;
 }
 
-input:focus, select:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+input:focus, select:focus { outline: none; border-color: #ffafcc; box-shadow: 0 0 0 3px rgba(255, 175, 204, 0.2); }
 
 button {
   background: var(--btn-bg);
-  color: white;
+  color: var(--btn-text);
   border: none;
-  padding: 16px;
-  border-radius: 14px;
+  padding: 14px;
+  border-radius: 12px;
   font-size: 1.1em;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 5px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 4px 10px rgba(162, 210, 255, 0.4);
 }
 
-button:hover { background: var(--btn-hover); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+button:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(162, 210, 255, 0.6); }
 
 /* 6. Lista de carduri (Flexbox) */
-.item-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.item-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px; }
 
 .item-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px;
+  padding: 20px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--card);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 }
 
 .item-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
-  border-color: #6366f1;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -5px rgba(255, 175, 204, 0.2);
+  border-color: #ffafcc;
 }
 
-.item-card h3 { margin: 0 0 12px 0; font-size: 1.3em; font-weight: 700; color: var(--text); }
+.item-card h3 { margin: 0 0 10px 0; font-size: 1.2em; font-weight: 600; color: var(--text); }
 
 .badge { 
-  padding: 6px 16px; 
+  padding: 6px 14px; 
   border-radius: 999px; 
   font-size: 0.85em;
-  font-weight: 700; 
+  font-weight: 600; 
   letter-spacing: 0.5px;
-  text-transform: uppercase;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .badge-mic-dejun { background-color: var(--badge-mic-dejun-bg); color: var(--badge-mic-dejun-txt); }
 .badge-demipensiune { background-color: var(--badge-demipensiune-bg); color: var(--badge-demipensiune-txt); }
 .badge-all-inclusive { background-color: var(--badge-all-inclusive-bg); color: var(--badge-all-inclusive-txt); }
 
-.status { font-weight: 700; font-size: 0.95em; color: var(--muted); background: var(--bg); padding: 8px 16px; border-radius: 12px; }
+.status { font-weight: 600; font-size: 0.95em; color: var(--muted); }
 
 /* 7. Starea Finalizat */
 .item-card.done h3 { text-decoration: line-through; color: var(--muted); }
-.item-card.done { background: var(--bg); opacity: 0.7; border: 1px dashed var(--border); box-shadow: none; }
-.item-card.done:hover { transform: none; border-color: var(--muted); opacity: 1; }
+.item-card.done { background: var(--bg); opacity: 0.8; border: 1px solid var(--border); box-shadow: none; }
+.item-card.done:hover { transform: none; border-color: var(--border); }
 
 /* 8. Accesibilitate */
-:focus-visible { outline: 3px dashed #6366f1; outline-offset: 4px; }
+:focus-visible { outline: 3px dashed #ffafcc; outline-offset: 4px; }
 
 /* 9. Responsivitate */
 @media (max-width: 700px) {
   .container { grid-template-columns: 1fr; margin-top: 20px; }
-  .item-card { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .item-card .status { align-self: stretch; text-align: center; margin-top: 8px; }
+  .item-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .item-card .status { align-self: flex-end; }
 }
