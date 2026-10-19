@@ -1,32 +1,222 @@
-* { box-sizing: border-box; }
-.page-wrapper {
-  --bg: #fdf8fa; --card: #ffffff; --text: #1e293b; --muted: #64748b;
-  --primary: #0ea5e9; --secondary: #ec4899; --border: #e2e8f0;
-  background-color: var(--bg); color: var(--text); min-height: 100vh;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --muted: #94a3b8;
-    --primary: #38bdf8; --secondary: #f472b6; --border: #334155;
-  }
+
+body {
+  margin: 0;
 }
-body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); }
-.app-header { 
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: #ffffff; text-align: center; padding: 55px 20px;
+
+.app-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2b91e3 0%, #a445b2 50%, #d4145a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  transition: background 0.3s ease;
 }
-.app-header h1 { margin: 0 0 10px 0; font-size: 2.6em; font-weight: 800; }
-.app-header p { margin: 0; font-size: 1.15em; }
-.app-header .app-count { 
-  margin-top: 18px; font-weight: 700; background: rgba(255,255,255,0.25); 
-  display: inline-block; padding: 6px 18px; border-radius: 30px; 
+
+/* Tema întunecată */
+.app-wrapper.dark-theme {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #0f172a 100%);
 }
-.container {
-  max-width: 1000px; margin: 24px auto; padding: 0 16px;
-  display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start;
+
+.top-bar {
+  margin-bottom: 25px;
 }
-.panel {
-  background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px;
+
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.panel h2 { margin-top: 0; font-size: 1.45em; color: var(--secondary); border-bottom: 2px dashed var(--border); padding-bottom: 12px; }
-pre { background: var(--bg); padding: 15px; border-radius: 12px; overflow-x: auto; }
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.03);
+}
+
+.main-layout {
+  display: flex;
+  gap: 30px;
+  max-width: 1100px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Carduri / Panouri */
+.card-panel {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.panel-form {
+  flex: 1;
+  max-width: 380px;
+}
+
+.panel-list {
+  flex: 1.6;
+}
+
+.panel-title {
+  color: #d12771;
+  font-size: 1.45rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.divider {
+  border: none;
+  border-top: 2px dashed #f0c3d7;
+  margin: 16px 0 24px 0;
+}
+
+/* Formular */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  background: #f9fafb;
+}
+
+.btn-submit {
+  margin-top: 8px;
+  background: #0284c7;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background: #0369a1;
+}
+
+/* Listă Rezervări */
+.rezervari-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rezervare-item {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+}
+
+/* Elementul neplătit are bordura laterală accentuată */
+.rezervare-item.neplatita {
+  border-left: 6px solid #0284c7;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Elementul plătit are textul barat */
+.rezervare-item.platita .destinatie-titlu {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+.destinatie-titlu {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+/* Badge tip masă */
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.badge-mic-dejun {
+  background: #fef08a;
+  color: #854d0e;
+}
+
+.badge-demipensiune {
+  background: #fbcfe8;
+  color: #9d174d;
+}
+
+.badge-all-inclusive {
+  background: #bae6fd;
+  color: #0369a1;
+}
+
+/* Status */
+.status-tag {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.status-platita {
+  color: #15803d;
+}
+
+.status-neplatita {
+  color: #0284c7;
+}
+
+.empty-message {
+  color: #64748b;
+  font-style: italic;
+  padding: 12px 0;
+}
+
+.app-footer {
+  margin-top: 40px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+}
