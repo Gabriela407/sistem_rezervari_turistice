@@ -1,35 +1,59 @@
+
 const ETICHETE_MASA = {
-  "mic-dejun": { text: "☕ Mic dejun", clasa: "badge-mic-dejun" },
-  "demipensiune": { text: "🍽️ Demipensiune", clasa: "badge-demipensiune" },
-  "all-inclusive": { text: "🍹 All Inclusive", clasa: "badge-all-inclusive" }
+  "mic-dejun": "☕ Mic dejun",
+  demipensiune: "🍽️ Demipensiune",
+  "all-inclusive": "🍹 All Inclusive"
 };
 
-export default function RezervariCard({ rezervare, onTogglePlata, onSterge }) {
-  const masa = ETICHETE_MASA[rezervare.tip_masa] || { text: rezervare.tip_masa, clasa: "" };
+export default function RezervariCard({
+  rezervare,
+  onTogglePlata,
+  onSterge
+}) {
+  const estePlatita = Boolean(rezervare.platita);
 
   return (
-    <li className={`rezervare-item ${rezervare.platita ? "platita" : "neplatita"}`}>
+    <li
+      className={`rezervare-item ${
+        estePlatita ? "platita" : "neplatita"
+      }`}
+    >
       <div className="rezervare-detalii">
         <div className="destinatie-header">
-          <h3 className="destinatie-titlu">{rezervare.destinatie}</h3>
-          <span className="hotel-stele">{rezervare.stele || "⭐⭐⭐⭐"}</span>
+          <h3 className="destinatie-titlu">
+            {rezervare.destinatie}
+          </h3>
+
+          <span className="hotel-stele">
+            {rezervare.stele || "⭐⭐⭐⭐"}
+          </span>
         </div>
-        
+
         <div className="meta-info">
-          <span className={`badge ${masa.clasa}`}>{masa.text}</span>
-          <span className="badge-pret">💰 {rezervare.pret || 500} EUR</span>
-          <span className="badge-nopti">🌙 {rezervare.nopti || 3} nopți</span>
+          <span className={`badge badge-${rezervare.tip_masa}`}>
+            {ETICHETE_MASA[rezervare.tip_masa] || rezervare.tip_masa}
+          </span>
+
+          <span className="badge-pret">
+            💰 {Number(rezervare.pret).toLocaleString("ro-RO")} EUR
+          </span>
+
+          <span className="badge-nopti">
+            🌙 {rezervare.nopti} nopți
+          </span>
         </div>
       </div>
 
       <div className="rezervare-actiuni">
         <button
           type="button"
-          className={`status-btn ${rezervare.platita ? "btn-platit" : "btn-asteptare"}`}
+          className={`status-btn ${
+            estePlatita ? "btn-platit" : "btn-asteptare"
+          }`}
           onClick={() => onTogglePlata(rezervare.id)}
-          title="Apasă pentru a schimba starea plății"
+          title="Schimbă starea plății"
         >
-          {rezervare.platita ? "✅ Plătită" : "⏳ Neplătită"}
+          {estePlatita ? "✅ Plătită" : "⏳ Neplătită"}
         </button>
 
         <button
@@ -37,6 +61,7 @@ export default function RezervariCard({ rezervare, onTogglePlata, onSterge }) {
           className="btn-delete"
           onClick={() => onSterge(rezervare.id)}
           title="Șterge rezervarea"
+          aria-label={`Șterge rezervarea ${rezervare.destinatie}`}
         >
           🗑️
         </button>

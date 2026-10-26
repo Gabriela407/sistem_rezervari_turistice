@@ -20,7 +20,7 @@ body {
   transition: background 0.3s ease;
 }
 
-
+/* Mod întunecat */
 .app-wrapper.dark-theme {
   background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #0f172a 100%);
 }

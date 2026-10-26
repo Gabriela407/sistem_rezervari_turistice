@@ -1,100 +1,167 @@
-import { useState } from "react";
-import RezervariList from "./components/RezervariList.jsx";
+
+import { useState, useEffect } from "react";
+import RezervariList from "./components/rezervariList.jsx";
 import "./App.css";
 
 const REZERVARI_INITIALE = [
-  { id: 1, destinatie: "🗼 Ritz Paris", platita: true, tip_masa: "mic-dejun", pret: 1200, nopti: 4, stele: "⭐⭐⭐⭐⭐" },
-  { id: 2, destinatie: "🏔️ Chalet Zermatt", platita: false, tip_masa: "demipensiune", pret: 850, nopti: 5, stele: "⭐⭐⭐⭐" },
-  { id: 3, destinatie: "🏝️ Maldives Resort", platita: true, tip_masa: "all-inclusive", pret: 2400, nopti: 7, stele: "⭐⭐⭐⭐⭐" }
+  {
+    id: 1,
+    destinatie: "🗼 Ritz Paris",
+    platita: true,
+    tip_masa: "mic-dejun",
+    pret: 1200,
+    nopti: 4,
+    stele: "⭐⭐⭐⭐⭐"
+  },
+  {
+    id: 2,
+    destinatie: "🏔️ Chalet Zermatt",
+    platita: false,
+    tip_masa: "demipensiune",
+    pret: 850,
+    nopti: 5,
+    stele: "⭐⭐⭐⭐"
+  },
+  {
+    id: 3,
+    destinatie: "🏝️ Maldives Resort",
+    platita: true,
+    tip_masa: "all-inclusive",
+    pret: 2400,
+    nopti: 7,
+    stele: "⭐⭐⭐⭐⭐"
+  }
 ];
 
 export default function App() {
   const [rezervari, setRezervari] = useState(REZERVARI_INITIALE);
   const [filtruText, setFiltruText] = useState("");
-  const [filtruStare, setFiltruStare] = useState("toate"); 
+  const [filtruStare, setFiltruStare] = useState("toate");
   const [temaIntunecata, setTemaIntunecata] = useState(false);
-
 
   const [destinatie, setDestinatie] = useState("");
   const [tipMasa, setTipMasa] = useState("mic-dejun");
   const [pret, setPret] = useState("");
-  const [nopti, setNopti] = useState(3);
+  const [nopti, setNopti] = useState("3");
+  const [estePlatitaLaAdaugare, setEstePlatitaLaAdaugare] = useState(false);
 
- 
+  useEffect(() => {
+    document.documentElement.dataset.theme = temaIntunecata
+      ? "dark"
+      : "light";
+  }, [temaIntunecata]);
+
   const platite = rezervari.filter((r) => r.platita).length;
-  const venitTotal = rezervari.filter((r) => r.platita).reduce((sum, r) => sum + (Number(r.pret) || 0), 0);
 
+  const venitTotal = rezervari
+    .filter((r) => r.platita)
+    .reduce((total, r) => total + (Number(r.pret) || 0), 0);
 
-  const handleAdaugaRezervare = (e) => {
+  function handleAdaugaRezervare(e) {
     e.preventDefault();
-    if (!destinatie.trim()) return;
+
+    const nume = destinatie.trim();
+    const pretNumeric = Number(pret);
+    const noptiNumerice = Number(nopti);
+
+    if (
+      !nume ||
+      pret === "" ||
+      !Number.isFinite(pretNumeric) ||
+      pretNumeric <= 0 ||
+      !Number.isInteger(noptiNumerice) ||
+      noptiNumerice < 1
+    ) {
+      return;
+    }
 
     const nouaRezervare = {
       id: Date.now(),
-      destinatie: destinatie.trim(),
-      platita: false,
+      destinatie: nume,
+      platita: estePlatitaLaAdaugare,
       tip_masa: tipMasa,
-      pret: Number(pret) || 500,
-      nopti: Number(nopti) || 3,
+      pret: pretNumeric,
+      nopti: noptiNumerice,
       stele: "⭐⭐⭐⭐"
     };
 
-    setRezervari([...rezervari, nouaRezervare]);
-    setDestinatie("");
-    setPret("");
-    setNopti(3);
-  };
+    setRezervari((prev) => [...prev, nouaRezervare]);
 
- 
-  const handleTogglePlata = (id) => {
-    setRezervari(
-      rezervari.map((rez) =>
-        rez.id === id ? { ...rez, platita: !rez.platita } : rez
+    setDestinatie("");
+    setTipMasa("mic-dejun");
+    setPret("");
+    setNopti("3");
+    setEstePlatitaLaAdaugare(false);
+  }
+
+  function handleTogglePlata(id) {
+    setRezervari((prev) =>
+      prev.map((rezervare) =>
+        rezervare.id === id
+          ? { ...rezervare, platita: !rezervare.platita }
+          : rezervare
       )
     );
-  };
+  }
 
-  const handleSterge = (id) => {
-    setRezervari(rezervari.filter((rez) => rez.id !== id));
-  };
+  function handleSterge(id) {
+    setRezervari((prev) =>
+      prev.filter((rezervare) => rezervare.id !== id)
+    );
+  }
 
-  // Căutare și filtrare 
-  const rezervariFiltrate = rezervari.filter((rez) => {
-    const potrivireNume = rez.destinatie.toLowerCase().includes(filtruText.toLowerCase());
-    if (filtruStare === "platite") return potrivireNume && rez.platita;
-    if (filtruStare === "neplatite") return potrivireNume && !rez.platita;
-    return potrivireNume;
+  const rezervariFiltrate = rezervari.filter((rezervare) => {
+    const potrivire = rezervare.destinatie
+      .toLowerCase()
+      .includes(filtruText.trim().toLowerCase());
+
+    if (filtruStare === "platite") {
+      return potrivire && rezervare.platita;
+    }
+
+    if (filtruStare === "neplatite") {
+      return potrivire && !rezervare.platita;
+    }
+
+    return potrivire;
   });
 
   return (
     <div className={`app-wrapper ${temaIntunecata ? "dark-theme" : ""}`}>
-      {/* Comutare Temă */}
       <div className="top-bar">
         <button
           type="button"
           className="theme-toggle-btn"
-          onClick={() => setTemaIntunecata(!temaIntunecata)}
+          onClick={() => setTemaIntunecata((prev) => !prev)}
+          aria-pressed={temaIntunecata}
         >
-          {temaIntunecata ? "☀️ Mod Luminos" : "🌙 Mod Întunecat"}
+          {temaIntunecata ? "☀️ Mod luminos" : "🌙 Mod întunecat"}
         </button>
       </div>
 
-      {}
       <header className="app-header">
-        <h1 className="main-title">✈️ Rezervări Turistice </h1>
-        <p className="subtitle">🌍 Gestionează pachetele turistice ale clienților.</p>
+        <h1 className="main-title">✈️ Rezervări Turistice</h1>
+        <p className="subtitle">
+          🌍 Gestionează pachetele turistice ale clienților.
+        </p>
+
         <div className="header-stats">
-          <span className="counter-pill">🛎️ {rezervari.length} rezervări ({platite} plătite)</span>
-          <span className="counter-pill pill-money">💵 Încasări: {venitTotal} EUR</span>
+          <span className="counter-pill">
+            🛎️ {rezervari.length} rezervări ({platite} plătite)
+          </span>
+
+          <span className="counter-pill pill-money">
+            💵 Încasări: {venitTotal.toLocaleString("ro-RO")} EUR
+          </span>
         </div>
       </header>
 
       <main className="main-layout">
-        {}
         <section className="card-panel panel-form">
           <h2 className="panel-title">
             <span className="icon">📍</span> Rezervare nouă
           </h2>
+
           <hr className="divider" />
 
           <form className="booking-form" onSubmit={handleAdaugaRezervare}>
@@ -116,9 +183,12 @@ export default function App() {
                 <input
                   id="pret"
                   type="number"
+                  min="1"
+                  step="0.01"
                   placeholder="500"
                   value={pret}
                   onChange={(e) => setPret(e.target.value)}
+                  required
                 />
               </div>
 
@@ -128,8 +198,10 @@ export default function App() {
                   id="nopti"
                   type="number"
                   min="1"
+                  step="1"
                   value={nopti}
                   onChange={(e) => setNopti(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -147,20 +219,32 @@ export default function App() {
               </select>
             </div>
 
+            <div className="form-group plata-checkbox">
+              <input
+                id="estePlatita"
+                type="checkbox"
+                checked={estePlatitaLaAdaugare}
+                onChange={(e) =>
+                  setEstePlatitaLaAdaugare(e.target.checked)
+                }
+              />
+              <label htmlFor="estePlatita">
+                Marchează ca deja plătită
+              </label>
+            </div>
+
             <button type="submit" className="btn-submit">
               ➕ Înregistrează pachetul
             </button>
           </form>
         </section>
 
-        {/* Panou Dreapta: Listă cu Filtrare și Căutare */}
         <section className="card-panel panel-list">
           <div className="list-top-bar">
             <h2 className="panel-title">
-              <span className="icon">🧳</span> Pachete Curente
+              <span className="icon">🧳</span> Pachete curente
             </h2>
-            
-            {/* Filtre Stare */}
+
             <div className="filter-tabs">
               <button
                 type="button"
@@ -169,6 +253,7 @@ export default function App() {
               >
                 Toate
               </button>
+
               <button
                 type="button"
                 className={`tab-btn ${filtruStare === "platite" ? "active" : ""}`}
@@ -176,6 +261,7 @@ export default function App() {
               >
                 Plătite
               </button>
+
               <button
                 type="button"
                 className={`tab-btn ${filtruStare === "neplatite" ? "active" : ""}`}
@@ -186,11 +272,11 @@ export default function App() {
             </div>
           </div>
 
-          {/* Căutare*/}
           <div className="search-box">
             <input
-              type="text"
+              type="search"
               placeholder="🔍 Caută după destinație..."
+              aria-label="Caută după destinație"
               value={filtruText}
               onChange={(e) => setFiltruText(e.target.value)}
             />
@@ -207,7 +293,7 @@ export default function App() {
       </main>
 
       <footer className="app-footer">
-        Sistem rezervări turistice-2026
+        Sistem rezervări turistice - 2026
       </footer>
     </div>
   );

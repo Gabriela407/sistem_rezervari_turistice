@@ -1,14 +1,16 @@
+
 import RezervariCard from "./RezervariCard.jsx";
 
-export default function RezervariList({ rezervari, onTogglePlata, onSterge }) {
-  
+export default function RezervariList({
+  rezervari,
+  onTogglePlata,
+  onSterge
+}) {
   if (!rezervari || rezervari.length === 0) {
     return (
-      <div className="empty-box">
-        <span className="empty-icon">🏖️</span>
-        <p className="empty-message">Nu există nicio rezervare înregistrată.</p>
-        <small className="empty-hint">Folosește formularul din stânga pentru a adăuga o destinație.</small>
-      </div>
+      <p className="empty-message">
+        Nu există nicio rezervare pentru criteriile selectate.
+      </p>
     );
   }
 
